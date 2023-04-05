@@ -1,5 +1,5 @@
-const mongoo = require('mongoose');
-const { Schema } = mongoo;
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
    
@@ -7,7 +7,7 @@ const UserSchema = new Schema({
         type : String ,
         required : true
     },
-    email :{
+    email:{
         type : String,
         required : true,
         unique : true 
@@ -24,5 +24,6 @@ const UserSchema = new Schema({
 
 });
 
-const user= mongoo.model('user' , UserSchema);
+const user= mongoose.model('user' , UserSchema);
+
 module.exports = user;
