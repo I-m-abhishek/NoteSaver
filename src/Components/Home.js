@@ -4,11 +4,11 @@ import Addnote from './Addnote';
 
 
 
-export const Home = () => {
- 
+export const Home = (props) => {
+    const showAlert=props;
     return (
         <>
-        <Addnote/>
+        <Addnote showAlert={showAlert}/>
         {/* <Notes/> */}
         </>
     )

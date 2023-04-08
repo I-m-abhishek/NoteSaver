@@ -25,7 +25,7 @@ router.post('/createuser' , [
   try {
   let  user = await User.findOne({email : req.body.email});
   if(user){
-   success=true;
+   // success=true;
    return res.status(400).json({ success , error : "Sorry , the user with this email exists already!"});
   }
   
@@ -44,7 +44,7 @@ router.post('/createuser' , [
    }
   }
     const authtoken= jwt.sign(userid , SecJwt);
-    success= true;
+    success= false;
     res.json({ success , authtoken});
    } catch (error) {
      console.error(error.message);
@@ -81,7 +81,7 @@ router.post('/login', [
       }
       const passwordcompare =  await bcrypt.compare(password , user.password);
       if(!passwordcompare){
-        
+         
          return  res.status(400).json({success ,error: "Please try to login with correct credentials"});
      }
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login(props) {
   let navigate = useNavigate();
 
        const [logindetails, setlogindetails] = useState({email: "" , password : ""});
@@ -19,18 +19,25 @@ export default function Login() {
           },
           body: JSON.stringify({email : logindetails.email , password : logindetails.password})
         });
+
         const json = await response.json(); // Auth-token
         console.log(json);
+         if(json.success){
+        props.showAlert('Logged In Successfully' , 'success');
         setlogindetails({ email: "" , password : ""  });
-
         localStorage.setItem('token' , json.authtoken);
-        navigate("/");
+        navigate("/");}
+        else{
+          props.showAlert("Invalid Details" , 'danger'); 
+
+        }
        
       }
   
   return (
     <div >
-        <form className='container' onSubmit={OnSubmithandle}>
+        <form className='container mt-1' onSubmit={OnSubmithandle}>
+          <h2>Login to continue to NoteSaver</h2>
   <div className="mb-3">
     <label htmlFor="exampleInputEmail1" className="form-label">Email </label>
     <input type="email" onChange={onchange} value={logindetails.email} className="form-control" name='email' id="email" aria-describedby="emailHelp"/>

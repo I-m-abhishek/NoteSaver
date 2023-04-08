@@ -1,7 +1,8 @@
 import React, { useContext ,useState } from 'react'
 import Notes from './Notes'; 
 import NoteContext from '../Context/Notes/NoteContext';
-export default function Addnote() {
+export default function Addnote(props) {
+  const {showAlert} = props.showAlert;
   const context = useContext(NoteContext);
   const {addnote} = context;
   const [note, setnote] = useState({"title" : "" , "description": "" ,"tag" :""});
@@ -9,14 +10,16 @@ export default function Addnote() {
     ele.preventDefault();
     addnote(note.title, note.description, note.tag);
     setnote({"title" : "" , "description": "" ,"tag" :""});
+    showAlert(" Note added successfully" , "success");
+
   }
   const onchange=(ele)=>{
      setnote({...note , [ele.target.name]: ele.target.value});
   }
   return (
-    <div>
+    <div className='container'>
      
-     <div className="container my-3">
+     <div className="container mt-1 " >
             <h2>Add a Note</h2>
         <form>
   <div className="mb-3">
@@ -36,9 +39,9 @@ export default function Addnote() {
   
 </form> 
         </div>
-        <div className="container my-3">
-           
-          <Notes/>
+        <div className="container mt-1">
+      
+          <Notes showAlert={showAlert} />
         </div>
         
     </div>
